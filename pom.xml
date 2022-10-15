@@ -7,14 +7,15 @@
   <groupId>com.main</groupId>
   <artifactId>TelchartShipSimulator</artifactId>
   <version>1.0</version>
+  <packaging>jar</packaging>
 
   <name>Telchart Ship Simulator</name>
   <url>https://github.com/ohatland/telchart-ship-simulator</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
   <dependencies>
@@ -54,23 +55,18 @@
       <artifactId>slf4j-api</artifactId>
       <version>1.7.5</version>
     </dependency>
-    <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-log4j12</artifactId>
-        <version>1.7.5</version>
-    </dependency>   
     
   </dependencies>
 
   <build>
-    <finalName>Telchart Ship Simulator</finalName>
+    <finalName>telchart-ship-simulator</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
           <archive>
             <manifest>
-              <mainClass>fully.qualified.MainClass</mainClass>
+              <mainClass>com.main.App</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>
