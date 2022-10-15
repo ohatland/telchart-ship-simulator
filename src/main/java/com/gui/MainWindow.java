@@ -52,7 +52,7 @@ public class MainWindow extends JFrame implements ActionListener, KeyListener{
         new SetPositionWindow(ship);
     }
 
-    public void keyReleased(KeyEvent e) {
+    public void keyPressed(KeyEvent e) {
         if(e.getKeyCode()== KeyEvent.VK_RIGHT)
             ship.TurnOneDegreePort();
         else if(e.getKeyCode()== KeyEvent.VK_LEFT)
@@ -64,7 +64,7 @@ public class MainWindow extends JFrame implements ActionListener, KeyListener{
 
         updateText();
     }
-
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         Object obj = e.getSource();
@@ -143,11 +143,11 @@ public class MainWindow extends JFrame implements ActionListener, KeyListener{
         frame.add(helpButton);
     }
 
-    public void keyPressed(KeyEvent e) {
+    public void keyTyped(KeyEvent e) {
         
     }
 
-    public void keyTyped(KeyEvent e) {
+    public void keyReleased(KeyEvent e) {
         
     }
 }
