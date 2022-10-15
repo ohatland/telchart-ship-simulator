@@ -5,6 +5,9 @@
 This program simulates NMEA inputs to Telchart  
 Allows you set a position for a simulated wessel, and drive it around in Telchart
 
+Uses mgavaghan geodesy library to calculate cordinates  
+https://github.com/mgavaghan/geodesy
+
 ## How to use
 
 1. [Download](https://github.com/ohatland/telchart-ship-simulator/raw/main/telchart-ship-simulator.jar)
