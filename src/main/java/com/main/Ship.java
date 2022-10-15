@@ -67,6 +67,14 @@ public class Ship {
         return position.getLongitude();
     }
 
+    public double GetLatitudeAbs() {
+        return Math.abs(position.getLatitude());
+    }
+    
+    public double GetLongitudeAbs() {
+        return Math.abs(position.getLongitude());
+    }
+
     public char GetLatitudeHemisphere() {
         if (position.getLatitude() > 0) {
             return 'N';
