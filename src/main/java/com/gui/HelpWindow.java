@@ -2,7 +2,6 @@ package com.gui;
 
 import java.awt.Font;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.net.Inet4Address;
 import java.net.URL;
 
@@ -14,18 +13,26 @@ import javax.swing.JLabel;
 public class HelpWindow extends JFrame{    
 
     BufferedImage settingsImg;
-    BufferedImage testImg;
+    
     JLabel settingsImage;
     JLabel testImage;
     
     public HelpWindow(int port) {
         try {
-            settingsImg = ImageIO.read(new File("src/main/resources/TelchartSettings.png"));
-            testImg = ImageIO.read(new File("src/main/resources/TelchartTest.png"));
-            settingsImage = new JLabel(new ImageIcon(settingsImg));
-            testImage = new JLabel(new ImageIcon(testImg));
+            URL url = new URL("https://raw.githubusercontent.com/ohatland/telchart-ship-simulator/main/src/main/resources/TelchartSettings.png");
+            BufferedImage img = ImageIO.read(url);
+            settingsImage = new JLabel(new ImageIcon(img));
         } catch (Exception e) {
+            System.out.println(e);
             settingsImage = new JLabel(e.toString());
+        }
+
+        try {
+            URL url = new URL("https://raw.githubusercontent.com/ohatland/telchart-ship-simulator/main/src/main/resources/TelchartTest.png");
+            BufferedImage img = ImageIO.read(url);
+            testImage = new JLabel(new ImageIcon(img));
+        } catch (Exception e) {
+            System.out.println(e);
             testImage = new JLabel(e.toString());
         }
         
