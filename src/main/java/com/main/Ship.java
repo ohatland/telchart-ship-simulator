@@ -1,40 +1,44 @@
 package com.main;
 
-import com.main.Position.*;
+import org.gavaghan.geodesy.*;
 
 public class Ship {
-    public Position position = new Position(
-        6528.490,
-        LatitudeDirection.N,
-        1212.457,
-        LongitudeDirection.E
-    );
 
-    private int heading = 33;
+    private GeodeticCalculator calculator = new GeodeticCalculator();
+    private GlobalCoordinates position;
+
+    private int bearing = 330;
     private int speedKnots = 0;
 
-    public void MoveShipOncePerSecound() {
-        double speedNauticalMilesPerSecound = nauticalMilesPerSecound(speedKnots);
-        double latitudeMovement = latitudeMovement(heading, speedNauticalMilesPerSecound);
-        double longitudeMovement = longitudeMovement(heading, speedNauticalMilesPerSecound);
-        double longitudeMovementAdjusted = adjustLongitudeSpeed(longitudeMovement);
+    public Ship(GlobalCoordinates p) {
+        position = new GlobalCoordinates(
+            p.getLatitude(), 
+            p.getLongitude()
+        );
+    }
 
-        position.MovePosition(latitudeMovement, longitudeMovementAdjusted);
+    public void MoveShipOncePerSecound() {
+        double distance = knotsToMeterPerSecound(speedKnots);
+        position = calculator.calculateEndingGlobalCoordinates(Ellipsoid.WGS84, position, bearing, distance);
+    }
+
+    private double knotsToMeterPerSecound(double knots) {
+        return knots * 0.5144;
     }
 
     public void TurnOneDegreeSarboard() {
-        if (heading == 0) {
-            heading = 359;
+        if (bearing == 0) {
+            bearing = 359;
         } else {
-            heading--;
+            bearing--;
         }
     }
 
     public void TurnOneDegreePort() {
-        if (heading == 359) {
-            heading = 0;
+        if (bearing == 359) {
+            bearing = 0;
         } else {
-            heading++;
+            bearing++;
         }
     }
 
@@ -50,35 +54,40 @@ public class Ship {
         speedKnots = speed;
     }
 
-    public void SetPosition(Position p) {
-        position.SetPosition(p);
+    public void SetPosition(GlobalCoordinates p) {
+        position.setLatitude(p.getLatitude());
+        position.setLongitude(p.getLongitude());
     }
 
-    private double latitudeMovement(int heading, double speed) {
-        return Math.sin(Math.toRadians(heading-90)*-1) * speed;
+    public double GetLatitude() {
+        return position.getLatitude();
     }
-
-    private double longitudeMovement(int heading, double speed) {
-        return Math.cos(Math.toRadians(heading-90)*-1) * speed;
-    }
-
-    private double nauticalMilesPerSecound(int speedKnots) {
-        return speedKnots * 0.00027777777777778;
-    } 
-
     
-    private double adjustLongitudeSpeed(double longitudeMovement) {
-        int earthsRadius = 6950000;
-        // int earthsRadius = 6378100;
-        double modifier = 1852 / ((2 * Math.PI * earthsRadius * Math.cos(Math.toRadians(position.latitude))) / 36000);
-        return longitudeMovement * modifier;
+    public double GetLongitude() {
+        return position.getLongitude();
     }
 
-    public String Heading() {
-        return Integer.toString(heading);
+    public char GetLatitudeHemisphere() {
+        if (position.getLatitude() > 0) {
+            return 'N';
+        } else {
+            return 'S';
+        }
     }
 
-    public String SpeedKnots() {
+    public char GetLongitudeHemisphere() {
+        if (position.getLongitude() > 0) {
+            return 'E';
+        } else {
+            return 'W';
+        }
+    }
+
+    public String GetBearing() {
+        return Integer.toString(bearing);
+    }
+
+    public String GetSpeedKnots() {
         return Integer.toString(speedKnots);
     }
 

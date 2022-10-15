@@ -7,9 +7,9 @@ import com.main.Ship;
 public class VTG_Message {
     public static String GetMessage(Ship ship) {
         String messageWithoutChecksum = 
-        "GPVTG," + ship.Heading() + 
+        "GPVTG," + ship.GetBearing() + 
         ",T,,M," +
-        ship.SpeedKnots() + ",N,,K";
+        ship.GetSpeedKnots() + ",N,,K";
         return "$" + messageWithoutChecksum + "*" + NMEA_Resources.CalculateChecksum(messageWithoutChecksum);
     }
 }

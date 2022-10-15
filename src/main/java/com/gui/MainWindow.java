@@ -87,8 +87,8 @@ public class MainWindow extends JFrame implements ActionListener, KeyListener{
     }
     
     private void updateText() {
-        headingText.setText(ship.Heading());
-        speedText.setText(ship.SpeedKnots());
+        headingText.setText(ship.GetBearing());
+        speedText.setText(ship.GetSpeedKnots());
     }
     
     private void setText() {

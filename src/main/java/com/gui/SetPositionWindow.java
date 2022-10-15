@@ -5,7 +5,8 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
-import com.main.Position;
+import org.gavaghan.geodesy.GlobalCoordinates;
+
 import com.main.Ship;
 
 import java.awt.event.ActionEvent;
@@ -47,11 +48,9 @@ public class SetPositionWindow extends JFrame implements ActionListener {
     }
 
     private void setPosition() {
-        ship.SetPosition(new Position(
+        ship.SetPosition(new GlobalCoordinates(
             Double.parseDouble(latitudeTextField.getText()),
-            Position.LatitudeDirection.valueOf(String.valueOf(latitudeDirectionComboBox.getSelectedItem())), 
-            Double.parseDouble(longitudeTextField.getText()), 
-            Position.LongitudeDirection.valueOf(String.valueOf(longitudeDirectionComboBox.getSelectedItem()))
+            Double.parseDouble(longitudeTextField.getText())
             )
         );
     }
@@ -59,11 +58,11 @@ public class SetPositionWindow extends JFrame implements ActionListener {
     private void setTextAndBoxes() {
         latitudeTextField = new JTextField();
         latitudeTextField.setBounds(100,75,100,30);
-        latitudeTextField.setText(String.format(Locale.US, "%.3f",ship.position.latitude));
+        latitudeTextField.setText(String.format(Locale.US, "%.3f",ship.GetLatitude()));
 
         longitudeTextField = new JTextField();
         longitudeTextField.setBounds(100,150,100,30);
-        longitudeTextField.setText(String.format(Locale.US, "%09.3f", ship.position.longitude));
+        longitudeTextField.setText(String.format(Locale.US, "%09.3f", ship.GetLongitude()));
 
         String[] lat = { "N", "S"};
         String[] lon = { "W", "E"};

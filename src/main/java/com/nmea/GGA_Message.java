@@ -16,15 +16,11 @@ public class GGA_Message {
         String messageWithoutChecksum =  
             "GPGGA," + 
             LocalTime.now().format(f) + "," + 
-            ship.position.latitude + "," +
-            ship.position.latitude_direction + "," +
-            String.format(Locale.US, "%016.10f", ship.position.longitude) + "," +
-            ship.position.longitude_direction + "," +
+            ship.GetLatitude()*100 + "," +
+            ship.GetLatitudeHemisphere() + "," +
+            String.format(Locale.US, "%016.10f", ship.GetLongitude()*100) + "," +
+            ship.GetLongitudeHemisphere() + "," +
             "1,12,,0,M,,M,,";
         return "$" + messageWithoutChecksum + "*" + NMEA_Resources.CalculateChecksum(messageWithoutChecksum);
     }
-
-    
-
-
 }
