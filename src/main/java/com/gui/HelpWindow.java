@@ -20,8 +20,8 @@ public class HelpWindow extends JFrame{
     
     public HelpWindow(int port) {
         try {
-            settingsImg = ImageIO.read(new File("src\\main\\resources\\TelchartSettings.png"));
-            testImg = ImageIO.read(new File("src\\main\\resources\\TelchartTest.png"));
+            settingsImg = ImageIO.read(new File("src/main/resources/TelchartSettings.png"));
+            testImg = ImageIO.read(new File("src/main/resources/TelchartTest.png"));
             settingsImage = new JLabel(new ImageIcon(settingsImg));
             testImage = new JLabel(new ImageIcon(testImg));
         } catch (Exception e) {
@@ -36,7 +36,7 @@ public class HelpWindow extends JFrame{
         JLabel serverPort = new JLabel("Port: " +Integer.toString(port));        
 
         helpText.setBounds(50,20,800,50);
-        helpText2.setBounds(50,350,300,50);
+        helpText2.setBounds(50,340,300,50);
         serverIP.setBounds(50,100,250,30);
         serverPort.setBounds(50,140,150,30);
         settingsImage.setBounds(250,50,500,300);
@@ -53,7 +53,7 @@ public class HelpWindow extends JFrame{
         frame.add(settingsImage);
         frame.add(testImage);
 
-        frame.setSize(800,650); //width, height  
+        frame.setSize(850,650); //width, height
         frame.setLayout(null);
         frame.setVisible(true);
     }
