@@ -1,30 +1,39 @@
 package com.gui;
 
 import java.awt.Font;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.net.Inet4Address;
 import java.net.URL;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 public class HelpWindow extends JFrame{    
+
+    BufferedImage settingsImg;
+    BufferedImage testImg;
+    JLabel settingsImage;
+    JLabel testImage;
+    
     public HelpWindow(int port) {
-        URL url1 = null;
-        URL url2 = null;
         try {
-            url1 = new URL("https://raw.githubusercontent.com/ohatland/telchart-ship-simulator/main/src/main/java/com/gui/TelchartSettings.png");
-            url2 = new URL("https://raw.githubusercontent.com/ohatland/telchart-ship-simulator/main/src/main/java/com/gui/TelchartTest.png");
+            settingsImg = ImageIO.read(new File("src\\main\\resources\\TelchartSettings.png"));
+            testImg = ImageIO.read(new File("src\\main\\resources\\TelchartTest.png"));
+            settingsImage = new JLabel(new ImageIcon(settingsImg));
+            testImage = new JLabel(new ImageIcon(testImg));
         } catch (Exception e) {
-            // TODO: handle exception
+            settingsImage = new JLabel(e.toString());
+            testImage = new JLabel(e.toString());
         }
+        
         JFrame frame = new JFrame("Settings helper");
         JLabel helpText = new JLabel("Enter IP and Port into TELchart ECS Setup");
         JLabel helpText2 = new JLabel("A successful test should look like this");
         JLabel serverIP = new JLabel(  "Server IP: " + getServerIP());
-        JLabel serverPort = new JLabel("Port: " +Integer.toString(port));
-        JLabel settingsImage = new JLabel(new ImageIcon(url1));
-        JLabel testImage = new JLabel(new ImageIcon(url2));
+        JLabel serverPort = new JLabel("Port: " +Integer.toString(port));        
 
         helpText.setBounds(50,20,800,50);
         helpText2.setBounds(50,350,300,50);
