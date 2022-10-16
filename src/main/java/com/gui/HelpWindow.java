@@ -39,11 +39,13 @@ public class HelpWindow extends JFrame{
         JFrame frame = new JFrame("Settings helper");
         JLabel helpText = new JLabel("Enter IP and Port into TELchart ECS Setup");
         JLabel helpText2 = new JLabel("A successful test should look like this");
+        JLabel version = new JLabel("Version: 1.0");
         JLabel serverIP = new JLabel(  "Server IP: " + getServerIP());
         JLabel serverPort = new JLabel("Port: " +Integer.toString(port));        
 
         helpText.setBounds(50,20,800,50);
         helpText2.setBounds(50,340,300,50);
+        version.setBounds(750,0,100,50);
         serverIP.setBounds(50,100,250,30);
         serverPort.setBounds(50,140,150,30);
         settingsImage.setBounds(250,50,500,300);
@@ -55,6 +57,7 @@ public class HelpWindow extends JFrame{
 
         frame.add(helpText);
         frame.add(helpText2);
+        frame.add(version);
         frame.add(serverIP);
         frame.add(serverPort);
         frame.add(settingsImage);
