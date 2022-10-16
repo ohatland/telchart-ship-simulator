@@ -3,6 +3,9 @@ package com.main;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import com.nmea.*;
 
@@ -34,6 +37,7 @@ public class WebServer {
     }
 
     private static class WebserverClientHandler extends Thread {
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
         private Socket clientSocket;
         private PrintWriter out;
         private Ship ship;
@@ -44,17 +48,16 @@ public class WebServer {
         }
 
         public void run() {
+
+            
             try {
                 System.out.println("Client connected");
                 this.clientSocket.setKeepAlive(true);
                 out = new PrintWriter(clientSocket.getOutputStream(), true);
                 
+                executor.scheduleAtFixedRate(moveShipOncePerSecound, 0, 1, TimeUnit.SECONDS);
+
                 while (clientSocket.getKeepAlive()) {
-                    ship.MoveShipOncePerSecound();
-                    out.println(HDT_Message.GetMessage(ship));
-                    out.println(VTG_Message.GetMessage(ship));
-                    out.println(GGA_Message.GetMessage(ship));
-                    Thread.sleep(1000);
                 }
 
                 out.close();
@@ -65,7 +68,15 @@ public class WebServer {
                 System.out.println("Clienthandler exception: " + e.getMessage());
                 e.printStackTrace();
             }
-            
         }
+
+        Runnable moveShipOncePerSecound = new Runnable() {
+            public void run() {
+                ship.MoveShipOncePerSecound();
+                out.println(HDT_Message.GetMessage(ship));
+                out.println(VTG_Message.GetMessage(ship));
+                out.println(GGA_Message.GetMessage(ship));
+            }
+        };
     }
 }
