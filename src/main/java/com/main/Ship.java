@@ -23,7 +23,8 @@ public class Ship {
     }
 
     private double knotsToMeterPerSecound(double knots) {
-        return knots * 0.5144;
+        // return knots * 0.5144;
+        return knots * 0.3086;
     }
 
     public void TurnOneDegreeSarboard() {
